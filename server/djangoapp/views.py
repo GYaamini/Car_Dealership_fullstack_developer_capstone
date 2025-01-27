@@ -114,19 +114,21 @@ def get_dealer_reviews(request,dealer_id):
 def get_dealer_details(request, dealer_id):
     if dealer_id:
         endpoint = "/fetchDealer/"+str(dealer_id)
-        dealerships = get_request(endpoint)
-        return JsonResponse({"status":200, "dealers":dealerships})
+        dealership = get_request(endpoint)
+        return JsonResponse({"status":200, "dealer":dealership})
     else:
         return JsonResponse({"status":400, "message": "Bad Request"})
 
 # Create a `add_review` view to submit a review
 def add_review(request):
     if request.user.is_anonymous == False:
-        data =json.loada(request.body)
+        data =json.loads(request.body)
         try:
             response = post_review(data)
             return JsonResponse({"status":200})
         except:
             return JsonResponse({"status":401,"message":"Error in posting review"})
+        finally:
+            print("add_review request successful")
     else:
         return JsonResponse({"status":403,"message":"Unauthorized"})
