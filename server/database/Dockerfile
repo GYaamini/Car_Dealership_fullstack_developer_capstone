@@ -2,12 +2,12 @@ FROM node:18.12.1-bullseye-slim
 
 RUN npm install -g npm@9.1.3
 
-ADD package.json .
-ADD app.js .
-ADD review.js .
-ADD dealership.js .
-ADD data/dealerships.json .
-ADD data/reviews.json .
+ADD server/database/package.json .
+ADD server/database/app.js .
+ADD server/database/review.js .
+ADD server/database/dealership.js .
+ADD server/database/data/dealerships.json .
+ADD server/database/data/reviews.json .
 COPY server/database/. .
 RUN npm install
 
