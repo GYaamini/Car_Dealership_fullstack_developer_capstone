@@ -4,13 +4,13 @@
     ENV PYTHONWRITEBYTECODE 1
 
     ENV APP=/app
-
-    # Install the requirements
-    COPY requirements.txt $APP
     
     # Change the workdir.
     WORKDIR $APP
 
+    # Install the requirements
+    COPY requirements.txt .
+    
     RUN pip install -r requirements.txt
 
     # Copy the rest of the files
