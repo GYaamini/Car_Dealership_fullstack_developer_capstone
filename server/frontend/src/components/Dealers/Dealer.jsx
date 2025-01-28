@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { useState,useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import "./Dealers.css";
@@ -64,7 +66,7 @@ const Dealer = () => {
 
       
     }
-  },[get_dealer,get_reviews,post_review]);  
+  },[]);  
 
 
 return(
