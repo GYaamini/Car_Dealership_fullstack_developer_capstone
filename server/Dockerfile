@@ -6,12 +6,10 @@
     # Change the workdir.
     WORKDIR /app
 
-    RUN ls
-    
     # Install the requirements
-    COPY . .
+    COPY requrements.txt /app/requirements.txt
     
-    RUN pip install -r requirements.txt
+    RUN pip install -r /app/requirements.txt
 
     # Copy the rest of the files
     COPY . /app/
