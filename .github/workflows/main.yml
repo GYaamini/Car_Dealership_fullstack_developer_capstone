@@ -70,6 +70,10 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_TOKEN
 
+    - name: Install docker-compose
+      run: |
+        sudo apt install docker-compose
+      
     - name: Deploy microservices
       run: docker-compose -f server/docker-compose.yml up -d
 
