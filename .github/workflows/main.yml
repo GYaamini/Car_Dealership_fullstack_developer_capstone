@@ -80,6 +80,12 @@ jobs:
     - name: Deploy microservices
       run: docker-compose -f server/docker-compose.yml up -d
 
+    - name: Building front-end
+      run: |
+        cd server/frontend
+        npm install
+        npm run build
+
     - name: Build the Docker image
       run: docker build . --file ./server/Dockerfile --tag gowriyaamini/cardealership-fullstack-capstone:${{ github.sha }}
 
