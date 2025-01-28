@@ -1,4 +1,4 @@
-name: 'Lint Code'
+name: 'Lint and Docker Image'
 
 on:
   push:
@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
     - name: Checkout Repository
       uses: actions/checkout@v3
     
@@ -57,3 +56,21 @@ jobs:
           # This command finds all JavaScript files recursively and runs JSHint on them
           find ./server/database -name "*.js" -exec jshint {} +
           echo "Linted all the js files successfully"
+
+  build:
+    name: Docker Image CI
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker login
+      env:
+        DOCKER_USER: ${{secrets.DOCKER_USERNAME}}
+        DOCKER_TOKEN: ${{secrets.DOCKER_TOKEN}}
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_TOKEN
+    - name: Build the Docker image
+      run: docker build . --file ./server/Dockerfile --tag gowriyaamini/cardealership-fullstack-capstone:${{ github.sha }}
+
+    - name: Docker push
+      run: docker push gowriyaamini/cardealership-fullstack-capstone:${{ github.sha }}
