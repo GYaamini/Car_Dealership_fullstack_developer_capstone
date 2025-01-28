@@ -3,13 +3,13 @@
     ENV PYTHONBUFFERED 1
     ENV PYTHONWRITEBYTECODE 1
 
-    ENV APP=/server
+    ENV APP=/app
 
     # Change the workdir.
     WORKDIR $APP
 
     # Install the requirements
-    COPY requirements.txt $APP
+    COPY ./requirements.txt $APP
 
     RUN pip3 install -r requirements.txt
 
