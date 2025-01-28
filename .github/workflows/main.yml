@@ -71,7 +71,7 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_TOKEN
 
     - name: Deploy microservices
-      run: ./server/docker-compose up -d
+      run: docker-compose -f server/docker-compose.yml up -d
 
     - name: Build the Docker image
       run: docker build . --file ./server/Dockerfile --tag gowriyaamini/cardealership-fullstack-capstone:${{ github.sha }}
