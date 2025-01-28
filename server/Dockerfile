@@ -6,14 +6,15 @@
     # Change the workdir.
     WORKDIR /app
 
+    RUN cd server
     # Install the requirements
-    COPY ./server/requrements.txt /app/requirements.txt
-    
+    COPY requrements.txt /app/requirements.txt
+
+    WORKDIR /app
+     
     RUN pip install -r requirements.txt
-
     # Copy the rest of the files
-    COPY ./server/ /app
-
+    COPY . /app
     RUN ls
     
     EXPOSE 8000
