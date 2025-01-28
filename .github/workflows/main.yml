@@ -70,6 +70,9 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_TOKEN
 
+    - name: Build the Docker image for nodeapp
+      run: docker build . -f server/database/Dockerfile -t nodeapp
+      
     - name: Install docker-compose
       run: |
         sudo apt install docker-compose
