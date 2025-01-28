@@ -2,19 +2,17 @@
 
     ENV PYTHONBUFFERED 1
     ENV PYTHONWRITEBYTECODE 1
-
-    ENV APP=/app
     
     # Change the workdir.
-    WORKDIR $APP
+    WORKDIR /app
 
     # Install the requirements
-    COPY requirements.txt .
+    COPY requirements.txt /app/
     
     RUN pip install -r requirements.txt
 
     # Copy the rest of the files
-    COPY . $APP
+    COPY . /app/
 
     EXPOSE 8000
 
