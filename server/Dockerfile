@@ -7,12 +7,12 @@
     WORKDIR /app
 
     # Install the requirements
-    COPY requrements.txt /app/requirements.txt
+    COPY ./requrements.txt /app/requirements.txt
     
-    RUN pip install -r /app/requirements.txt
+    RUN pip install -r requirements.txt
 
     # Copy the rest of the files
-    COPY . /app/
+    COPY . /app
 
     RUN ls
     
