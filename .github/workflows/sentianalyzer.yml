@@ -3,9 +3,11 @@ on:
   push:
     paths:
       - 'server/djangoapp/microservices/**'
+      - '.github/workflows/sentianalyzer.yml'
   pull_request:
     paths:
       - 'server/djangoapp/microservices/**'
+      - '.github/workflows/sentianalyzer.yml'
 
 jobs:
 
