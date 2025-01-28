@@ -81,6 +81,8 @@ jobs:
       run: docker-compose -f server/docker-compose.yml up -d
 
     - name: Building front-end
+      env:
+        CI: false
       run: |
         cd server/frontend
         npm install
