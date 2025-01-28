@@ -3,7 +3,7 @@
     ENV PYTHONBUFFERED 1
     ENV PYTHONWRITEBYTECODE 1
 
-    ENV APP=/app
+    ENV APP=/server
 
     # Change the workdir.
     WORKDIR $APP
