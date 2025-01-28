@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { useState, useEffect } from 'react';
 import "./Dealers.css";
 import "../assets/style.css";
@@ -44,7 +46,7 @@ const Dealers = () => {
   }
   useEffect(() => {
     get_dealers();
-  },[get_dealers]);  
+  },[]);  
 
 
 let isLoggedIn = sessionStorage.getItem("username") != null ? true : false;
