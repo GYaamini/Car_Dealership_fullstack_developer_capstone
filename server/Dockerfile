@@ -6,14 +6,18 @@
     # Change the workdir.
     WORKDIR /app
 
+    RUN ls
+    
     # Install the requirements
-    COPY requirements.txt /app/
+    COPY . .
     
     RUN pip install -r requirements.txt
 
     # Copy the rest of the files
     COPY . /app/
 
+    RUN ls
+    
     EXPOSE 8000
 
     RUN chmod +x /app/entrypoint.sh
