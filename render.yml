@@ -1,0 +1,54 @@
+services:
+  - type: web
+    name: api
+    env: docker
+    build:
+      dockerfile: server/Dockerfile # Path to your Dockerfile
+      context: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main
+    ports:
+      - "8000:8000"
+    envVars:
+      - key: MONGO_URI
+        value: "mongodb://mongo_db:27017/db"
+    plan: free
+    healthCheck:
+      path: "/"
+      port: 8000
+
+  - type: web
+    name: sentianalyser
+    env: docker
+    build:
+      dockerfile: server/djangoapp/microservices/Dockerfile
+      context: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main
+    ports:
+      - "5000:5000"
+    plan: free
+
+  - type: web
+    name: web
+    env: docker
+    build:
+      dockerfile: server/frontend/Dockerfile
+      context: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main
+    ports:
+      - "3000:3000"
+    plan: free
+
+  - type: database
+    name: mongo_db
+    env: docker
+    image: mongo:latest
+    plan: free
+    envVars:
+      - key: MONGO_INITDB_ROOT_USERNAME
+        value: "root"
+      - key: MONGO_INITDB_ROOT_PASSWORD
+        value: "password"
+    volumes:
+      - name: mongo_data
+        path: /data/db
+
+volumes:
+  mongo_data:
+    type: persistent

@@ -37,13 +37,6 @@ services:
       dockerfile: server/frontend/Dockerfile
     ports:
       - "3000:3000"
-    volumes:
-     - .:/app/frontend
-     - ./node_modules:/app/frontend/node_modules
-    environment:
-      NODE_ENV: development
-    stdin_open: true
-    tty: true
-    command: npm start
+
 volumes:
   mongo_data: {}
