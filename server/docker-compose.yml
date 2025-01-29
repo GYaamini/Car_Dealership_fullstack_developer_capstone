@@ -26,7 +26,7 @@ services:
   sentianalyser:
     build: 
       context: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main
-      dockerfile: server/djangoapp/microservice/Dockerfile
+      dockerfile: server/djangoapp/microservices/Dockerfile
     ports:
       - 5000:5000
 
