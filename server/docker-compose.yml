@@ -27,7 +27,6 @@ services:
 
   # Frontend
   web:
-    build: .
     image: reatapp
     ports:
       - "3000:3000"

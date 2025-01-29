@@ -24,7 +24,7 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_TOKEN
     - name: Build the Docker image
-      run: docker build . -file server/djangoapp/microservices/Dockerfile -t sentianalyzer
+      run: docker build . -f server/djangoapp/microservices/Dockerfile -t sentianalyzer
 
     - name: Docker push
       run: docker push gowriyaamini/senti_analyzer:${{ github.sha }}
