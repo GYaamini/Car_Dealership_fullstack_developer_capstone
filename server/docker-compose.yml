@@ -24,5 +24,20 @@ services:
     image: gowriyaamini/senti_analyzer:ede585d73dc033a7bfc260bea033c3d4ea3fdaf6
     ports:
       - 5000:5000
+
+  # Frontend
+  web:
+    build: .
+    image: reatapp
+    ports:
+      - "3000:3000"
+    volumes:
+     - .:/app/frontend
+     - ./node_modules:/app/frontend/node_modules
+    environment:
+      NODE_ENV: development
+    stdin_open: true
+    tty: true
+    command: npm start
 volumes:
   mongo_data: {}

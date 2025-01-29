@@ -14,20 +14,6 @@
 
     # Copy the rest of the files
     COPY server/. .
-
-    # Run npm build
-    FROM node:20-alpine
-    
-    WORKDIR /app/frontend
-
-    COPY server/frontend/. /app/frontend/
-    
-    RUN npm install
-    RUN npm run build
-
-    WORKDIR /app
-
-    COPY server/. .
     
     EXPOSE 8000
 

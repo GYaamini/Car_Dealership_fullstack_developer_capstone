@@ -72,7 +72,10 @@ jobs:
 
     - name: Build the Docker image for nodeapp
       run: docker build . -f server/database/Dockerfile -t nodeapp
-      
+    
+    - name: Build the Docker image for reactapp
+      run: docker build . -f server/frontend/Dockerfile -t reactapp
+
     - name: Install docker-compose
       run: |
         sudo apt install docker-compose
