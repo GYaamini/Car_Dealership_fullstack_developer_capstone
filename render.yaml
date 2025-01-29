@@ -50,6 +50,3 @@ services:
         value: 3000
     plan: free
 
-volumes:
-  mongo_data:
-    type: persistent
