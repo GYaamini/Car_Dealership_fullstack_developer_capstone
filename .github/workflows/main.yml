@@ -83,7 +83,11 @@ jobs:
     - name: Building front-end
       env:
         CI: false
+        GIT_USERNAME: ${{vars.GIT_USERNAME}}
+        GIT_EMAIL: ${{vars.GIT_EMAIL}}
       run: |
+        git config --global user.email GIT_EMAIL
+        git config --global user.name GIT_USERNAME
         cd server/frontend
         npm install        
         npm run build
