@@ -13,7 +13,7 @@
     RUN pip3 install -r requirements.txt
 
     # Copy the rest of the files
-    COPY server/. ./
+    COPY server/. .
 
     # Run npm build
     FROM node:20-alpine
@@ -26,6 +26,8 @@
     RUN npm run build
 
     WORKDIR /app
+
+    COPY server/. .
     
     EXPOSE 8000
 
