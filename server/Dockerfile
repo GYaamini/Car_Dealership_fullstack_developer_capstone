@@ -14,7 +14,7 @@
     RUN pip3 install -r requirements.txt
 
     # Copy the rest of the files
-    COPY server/djangoproj ${APP}/
+    COPY server/. ${APP}/
     
     EXPOSE 8000
 
@@ -22,4 +22,4 @@
 
     ENTRYPOINT ["/bin/bash","/app/entrypoint.sh"]
 
-    CMD ["gunicorn", "--bind", "0.0.0.0:8000", "djangoproject.wsgi:application"]
+    CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "djangoproj.wsgi"]
