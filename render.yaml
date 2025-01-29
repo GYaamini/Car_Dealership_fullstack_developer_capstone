@@ -1,6 +1,6 @@
 services:
   # MongoDB Database Service (using official MongoDB image)
-  - type: mongo
+  - type: web
     name: mongo_db
     env: docker
     envVars:
