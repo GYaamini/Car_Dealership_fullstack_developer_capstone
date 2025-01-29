@@ -1,18 +1,20 @@
 services:
   # MongoDB Database Service (using official MongoDB image)
-  - type: web
+  - type: pserv
     name: mongo_db
+    autoDeploy: false
     env: docker
-    envVars:
-      - key: image
-        value: mongo:latest
+    disk:
+      name: data
+      mountPath: /data/db
+      sizeGB: 10
     plan: free
 
   # Node.js API Service (from your provided Dockerfile)
   - type: web
     name: node_api
     env: docker
-    dockerfilePath: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main:server/database/Dockerfile  # Path to your Node.js Dockerfile
+    dockerfilePath: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git/blob/main/server/database/Dockerfile  # Path to your Node.js Dockerfile
     envVars:
       - key: PORT
         value: 3030
@@ -22,7 +24,7 @@ services:
   - type: web
     name: django_api
     env: docker
-    dockerfilePath: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main:server/Dockerfile  # Correct path to Django's Dockerfile
+    dockerfilePath: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git/blob/main/server/Dockerfile  # Correct path to Django's Dockerfile
     envVars:
       - key: PORT
         value: 8000
@@ -34,7 +36,7 @@ services:
   - type: web
     name: sentianalyser
     env: docker
-    dockerfilePath: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main:server/djangoapp/microservices/Dockerfile  # Path to the microservices Dockerfile
+    dockerfilePath: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git/blob/main/server/djangoapp/microservices/Dockerfile  # Path to the microservices Dockerfile
     envVars:
       - key: PORT
         value: 5000
@@ -44,7 +46,7 @@ services:
   - type: web
     name: web
     env: docker
-    dockerfilePath: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main:server/frontend/Dockerfile  # Path to the frontend Dockerfile
+    dockerfilePath: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git/blob/main/server/frontend/Dockerfile  # Path to the frontend Dockerfile
     envVars:
       - key: PORT
         value: 3000
