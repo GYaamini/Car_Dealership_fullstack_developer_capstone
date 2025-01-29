@@ -3,20 +3,19 @@ services:
   - type: mongo
     name: mongo_db
     env: docker
-    image: mongo:latest  # Using the official MongoDB image
+    envVars:
+      - key: image
+        value: mongo:latest
     plan: free
-    volumes:
-      - mongo_data:/data/db  # Ensure the data persists
 
   # Node.js API Service (from your provided Dockerfile)
   - type: web
     name: node_api
     env: docker
     dockerfilePath: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main:server/database/Dockerfile  # Path to your Node.js Dockerfile
-    ports:
-      - "3030:3030"
-    dependsOn:
-      - mongo_db  # Node.js API depends on MongoDB
+    envVars:
+      - key: PORT
+        value: 3030
     plan: free
 
   # Django API Service
@@ -24,11 +23,9 @@ services:
     name: django_api
     env: docker
     dockerfilePath: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main:server/Dockerfile  # Correct path to Django's Dockerfile
-    ports:
-      - "8000:8000"
-    dependsOn:
-      - mongo_db
     envVars:
+      - key: PORT
+        value: 8000
       - key: MONGO_URI
         value: "mongodb://mongo_db:27017/db"  # MongoDB URI for Django to connect
     plan: free
@@ -38,10 +35,9 @@ services:
     name: sentianalyser
     env: docker
     dockerfilePath: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main:server/djangoapp/microservices/Dockerfile  # Path to the microservices Dockerfile
-    ports:
-      - "5000:5000"
-    dependsOn:
-      - django_api  # Sentiment analysis depends on the Django API
+    envVars:
+      - key: PORT
+        value: 5000
     plan: free
 
   # Frontend Service
@@ -49,10 +45,9 @@ services:
     name: web
     env: docker
     dockerfilePath: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main:server/frontend/Dockerfile  # Path to the frontend Dockerfile
-    ports:
-      - "3000:3000"
-    dependsOn:
-      - django_api  # Frontend depends on the Django API
+    envVars:
+      - key: PORT
+        value: 3000
     plan: free
 
 volumes:
