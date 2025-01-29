@@ -86,6 +86,7 @@ jobs:
         GIT_USERNAME: ${{vars.GIT_USERNAME}}
         GIT_EMAIL: ${{vars.GIT_EMAIL}}
       run: |
+        git remote set-url origin https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone
         git config --global user.email GIT_EMAIL
         git config --global user.name GIT_USERNAME
         cd server/frontend
