@@ -70,21 +70,12 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_TOKEN
 
-    - name: Build the Docker image for nodeapp
-      run: docker build . -f server/database/Dockerfile -t nodeapp
-    
-    - name: Build the Docker image for Sentiment Analyzer
-      run: docker build . -f server/djangoapp/microservices/Dockerfile -t senti_analyzer
-
-    - name: Build the Docker image for reactapp
-      run: docker build . -f server/frontend/Dockerfile -t reactapp
-
     - name: Install docker-compose
       run: |
         sudo apt install docker-compose
       
     - name: Deploy microservices
-      run: docker-compose -f server/docker-compose.yml up -d
+      run: docker-compose -f server/docker-compose.yml up --build
 
     - name: Build the Docker image
       run: docker build . --file ./server/Dockerfile --tag gowriyaamini/cardealership-fullstack-capstone:${{ github.sha }}
