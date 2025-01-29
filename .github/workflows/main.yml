@@ -87,9 +87,6 @@ jobs:
         cd server/frontend
         npm install        
         npm run build
-        npm install -g serve
-        yarn global add serve
-        serve -s build
 
     - name: Build the Docker image
       run: docker build . --file ./server/Dockerfile --tag gowriyaamini/cardealership-fullstack-capstone:${{ github.sha }}
