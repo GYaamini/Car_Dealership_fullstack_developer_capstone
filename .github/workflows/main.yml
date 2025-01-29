@@ -92,7 +92,7 @@ jobs:
       env:
         GIT_USERNAME: ${{variables.GIT_USERNAME}}
         GIT_EMAIL: ${{variables.GIT_EMAIL}}
-    - run: |
+      run: |
         git config --global user.name GIT_USERNAME
         git config --global user.email GIT_EMAIL
         git add .
