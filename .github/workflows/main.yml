@@ -88,6 +88,17 @@ jobs:
         npm install        
         npm run build
 
+    - name: pushing production build
+      env:
+        GIT_USERNAME: ${{variables.GIT_USERNAME}}
+        GIT_EMAIL: ${{variables.GIT_EMAIL}}
+    - run: |
+        git config --global user.name GIT_USERNAME
+        git config --global user.email GIT_EMAIL
+        git add .
+        git commit -m "build generated"
+        git push
+
     - name: Build the Docker image
       run: docker build . --file ./server/Dockerfile --tag gowriyaamini/cardealership-fullstack-capstone:${{ github.sha }}
 
