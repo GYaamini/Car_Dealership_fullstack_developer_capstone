@@ -16,10 +16,12 @@
     # Copy the rest of the files
     COPY server/. $APP
 
+    # Run npm build
+    FROM node:10-alpine as BUILD
+    
     WORKDIR $APP/frontend
 
     RUN npm install
-
     RUN npm run build
 
     WORKDIR $APP
