@@ -90,8 +90,8 @@ jobs:
 
     - name: pushing production build
       env:
-        GIT_USERNAME: ${{variables.GIT_USERNAME}}
-        GIT_EMAIL: ${{variables.GIT_EMAIL}}
+        GIT_USERNAME: ${{vars.GIT_USERNAME}}
+        GIT_EMAIL: ${{vars.GIT_EMAIL}}
       run: |
         git config --global user.name GIT_USERNAME
         git config --global user.email GIT_EMAIL
