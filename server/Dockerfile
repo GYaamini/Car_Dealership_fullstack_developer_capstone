@@ -16,7 +16,7 @@
     COPY server/. ./
 
     # Run npm build
-    FROM node:10-alpine as BUILD
+    FROM node:20-alpine
     
     WORKDIR /app/frontend
 
