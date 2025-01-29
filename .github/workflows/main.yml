@@ -80,22 +80,6 @@ jobs:
     - name: Deploy microservices
       run: docker-compose -f server/docker-compose.yml up -d
 
-    - name: Building front-end
-      env:
-        CI: false
-        GIT_USERNAME: ${{vars.GIT_USERNAME}}
-        GIT_EMAIL: ${{vars.GIT_EMAIL}}
-      run: |
-        git remote add origin https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git
-        git config --global user.email GIT_EMAIL
-        git config --global user.name GIT_USERNAME
-        cd server/frontend
-        npm install        
-        npm run build
-        npm install --save gh-pages
-        yarn add gh-pages
-        npm run deploy
-
     - name: Build the Docker image
       run: docker build . --file ./server/Dockerfile --tag gowriyaamini/cardealership-fullstack-capstone:${{ github.sha }}
 
