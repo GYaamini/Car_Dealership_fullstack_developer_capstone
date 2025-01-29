@@ -1,4 +1,9 @@
-FROM node:18.12.1-bullseye-slim
+#######
+#stage1
+#######
+FROM node:18.12.1-bullseye-slim as Build
+
+WORKDIR /backend
 
 RUN npm install -g npm@9.1.3
 
@@ -11,6 +16,11 @@ ADD server/database/data/reviews.json .
 COPY server/database/. .
 RUN npm install
 
-EXPOSE 3030
+#######
+#stage2
+#######
+FROM node:18.12.1-bullseye-slim as Production
 
-CMD [ "node", "app.js" ]
+COPY --from=Build /backend /backend
+
+EXPOSE 3030
