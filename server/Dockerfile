@@ -13,13 +13,15 @@
     RUN pip3 install -r requirements.txt
 
     # Copy the rest of the files
-    COPY server/. .
+    COPY server/. ./
 
     # Run npm build
     FROM node:10-alpine as BUILD
     
     WORKDIR /app/frontend
 
+    COPY server/frontend/. /app/frontend/
+    
     RUN npm install
     RUN npm run build
 
