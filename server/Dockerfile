@@ -15,6 +15,14 @@
 
     # Copy the rest of the files
     COPY server/. $APP
+
+    WORKDIR $APP/frontend
+
+    RUN npm install
+
+    RUN npm run build
+
+    WORKDIR $APP
     
     EXPOSE 8000
 
