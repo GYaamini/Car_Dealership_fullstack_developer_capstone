@@ -1,17 +1,12 @@
-#######
-#stage1
-#######
-FROM node:20-alpine as Build
-WORKDIR /frontend
+FROM node:16
 
-COPY server/frontend/. .
+WORKDIR /app
+
+# Copy the frontend files
+COPY server/frontend /app/
 
 RUN npm install
 RUN npm run build
 
-#######
-#stage2
-#######
-FROM node:20-alpine AS production
-COPY --from=Build /frontend /frontend
-EXPOSE 80
+EXPOSE 3000
+CMD ["npm", "start"]

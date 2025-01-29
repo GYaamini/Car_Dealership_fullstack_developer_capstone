@@ -1,21 +1,15 @@
-#######
-#stage1
-#######
-FROM python:3.9.18-slim-bookworm as Build
+FROM python:3.9.18-slim-bookworm
 
-WORKDIR /microserivces
+WORKDIR /python-docker
 
 COPY server/djangoapp/microservices/requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
-COPY server/djangoapp/microservices/. .
-RUN ls
+RUN pip install -r requirements.txt
 
-#######
-#stage2
-#######
-FROM python:3.9.18-slim-bookworm as Production
-WORKDIR /microservices
+COPY server/djangoapp/microservices/ .
 
-# Copy the Artifacts from stage1 (code + dependecies compiled = Artifact)
-COPY --from=Build /microserivces /microservices
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0           
+
 EXPOSE 5000
+
+CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0"]

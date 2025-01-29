@@ -9,12 +9,12 @@
     WORKDIR ${APP}
 
     # Install the requirements
-    COPY server/requirements.txt ${APP}
+    COPY server/requirements.txt ${APP}/
 
     RUN pip3 install -r requirements.txt
 
     # Copy the rest of the files
-    COPY server/. ${APP}
+    COPY server/djangoproj ${APP}/
     
     EXPOSE 8000
 
@@ -22,4 +22,4 @@
 
     ENTRYPOINT ["/bin/bash","/app/entrypoint.sh"]
 
-    CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "djangoproj.wsgi"]
+    CMD ["gunicorn", "--bind", "0.0.0.0:8000", "server.djangoproject.wsgi:application"]

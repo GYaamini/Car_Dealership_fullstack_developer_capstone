@@ -1,53 +1,59 @@
 services:
-  - type: web
-    name: api
-    env: docker
-    build:
-      dockerfile: server/Dockerfile # Path to your Dockerfile
-      context: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main
-    ports:
-      - "8000:8000"
-    envVars:
-      - key: MONGO_URI
-        value: "mongodb://mongo_db:27017/db"
-    plan: free
-    healthCheck:
-      path: "/"
-      port: 8000
-
-  - type: web
-    name: sentianalyser
-    env: docker
-    build:
-      dockerfile: server/djangoapp/microservices/Dockerfile
-      context: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main
-    ports:
-      - "5000:5000"
-    plan: free
-
-  - type: web
-    name: web
-    env: docker
-    build:
-      dockerfile: server/frontend/Dockerfile
-      context: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main
-    ports:
-      - "3000:3000"
-    plan: free
-
+  # MongoDB Database Service (using official MongoDB image)
   - type: database
     name: mongo_db
     env: docker
-    image: mongo:latest
+    image: mongo:latest  # Using the official MongoDB image
     plan: free
-    envVars:
-      - key: MONGO_INITDB_ROOT_USERNAME
-        value: "root"
-      - key: MONGO_INITDB_ROOT_PASSWORD
-        value: "password"
     volumes:
-      - name: mongo_data
-        path: /data/db
+      - mongo_data:/data/db  # Ensure the data persists
+
+  # Node.js API Service (from your provided Dockerfile)
+  - type: web
+    name: node_api
+    env: docker
+    dockerfilePath: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main:server/database/Dockerfile  # Path to your Node.js Dockerfile
+    ports:
+      - "3030:3030"
+    dependsOn:
+      - mongo_db  # Node.js API depends on MongoDB
+    plan: free
+
+  # Django API Service
+  - type: web
+    name: django_api
+    env: docker
+    dockerfilePath: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main:server/Dockerfile  # Correct path to Django's Dockerfile
+    ports:
+      - "8000:8000"
+    dependsOn:
+      - mongo_db
+    envVars:
+      - key: MONGO_URI
+        value: "mongodb://mongo_db:27017/db"  # MongoDB URI for Django to connect
+    plan: free
+
+  # Sentiment Analysis Microservice
+  - type: web
+    name: sentianalyser
+    env: docker
+    dockerfilePath: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main:server/djangoapp/microservices/Dockerfile  # Path to the microservices Dockerfile
+    ports:
+      - "5000:5000"
+    dependsOn:
+      - django_api  # Sentiment analysis depends on the Django API
+    plan: free
+
+  # Frontend Service
+  - type: web
+    name: web
+    env: docker
+    dockerfilePath: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main:server/frontend/Dockerfile  # Path to the frontend Dockerfile
+    ports:
+      - "3000:3000"
+    dependsOn:
+      - django_api  # Frontend depends on the Django API
+    plan: free
 
 volumes:
   mongo_data:
