@@ -73,6 +73,9 @@ jobs:
     - name: Build the Docker image for nodeapp
       run: docker build . -f server/database/Dockerfile -t nodeapp
     
+    - name: Build the Docker image for Sentiment Analyzer
+      run: docker build . -f server/djangoapp/microservices/Dockerfile -t senti_analyzer
+
     - name: Build the Docker image for reactapp
       run: docker build . -f server/frontend/Dockerfile -t reactapp
 

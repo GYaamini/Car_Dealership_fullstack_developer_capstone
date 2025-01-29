@@ -21,7 +21,7 @@ services:
 
   # Sentiment Analyzer microservice
   sentianalyser:
-    image: gowriyaamini/senti_analyzer:ede585d73dc033a7bfc260bea033c3d4ea3fdaf6
+    image: senti_analyzer
     ports:
       - 5000:5000
 
