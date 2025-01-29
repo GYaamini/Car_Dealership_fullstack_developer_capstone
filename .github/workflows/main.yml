@@ -87,6 +87,9 @@ jobs:
         cd server/frontend
         npm install        
         npm run build
+        npm install --save gh-pages
+        yarn add gh-pages
+        npm run deploy
 
     - name: Build the Docker image
       run: docker build . --file ./server/Dockerfile --tag gowriyaamini/cardealership-fullstack-capstone:${{ github.sha }}
