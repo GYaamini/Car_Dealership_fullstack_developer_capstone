@@ -22,4 +22,4 @@
 
     ENTRYPOINT ["/bin/bash","/app/entrypoint.sh"]
 
-    CMD ["gunicorn", "--bind", "0.0.0.0:8000", "server.djangoproject.wsgi:application"]
+    CMD ["gunicorn", "--bind", "0.0.0.0:8000", "djangoproject.wsgi:application"]
