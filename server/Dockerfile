@@ -3,28 +3,27 @@
     ENV PYTHONBUFFERED 1
     ENV PYTHONWRITEBYTECODE 1
     
-    ENV APP /app
 
     # Change the workdir.
-    WORKDIR $APP
+    WORKDIR /app
 
     # Install the requirements
-    COPY server/requirements.txt $APP
+    COPY server/requirements.txt requirements.txt
 
     RUN pip3 install -r requirements.txt
 
     # Copy the rest of the files
-    COPY server/. $APP
+    COPY server/. .
 
     # Run npm build
     FROM node:10-alpine as BUILD
     
-    WORKDIR $APP/frontend
+    WORKDIR /app/frontend
 
     RUN npm install
     RUN npm run build
 
-    WORKDIR $APP
+    WORKDIR /app
     
     EXPOSE 8000
 
