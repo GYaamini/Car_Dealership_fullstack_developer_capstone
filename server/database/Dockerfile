@@ -8,7 +8,8 @@ ADD review.js .
 ADD dealership.js .
 ADD data/dealerships.json .
 ADD data/reviews.json .
-COPY server/database/. .
+# COPY server/database/. .
+COPY . .
 RUN npm install
 
 EXPOSE 3030
