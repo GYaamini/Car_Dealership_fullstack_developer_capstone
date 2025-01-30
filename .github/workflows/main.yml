@@ -79,7 +79,7 @@ jobs:
     #   run: docker-compose -f server/docker-compose.yml up web
 
     - name: Build the Docker image
-      run: docker build . --file ./server/Dockerfile --tag gowriyaamini/cardealership-fullstack-capstone:${{ github.sha }}
+      run: docker build . --file Dockerfile --tag gowriyaamini/cardealership-fullstack-capstone:${{ github.sha }}
 
     - name: Docker push
       run: docker push gowriyaamini/cardealership-fullstack-capstone:${{ github.sha }}
