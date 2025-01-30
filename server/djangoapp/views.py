@@ -104,12 +104,13 @@ def get_inventory(request, dealer_id):
         elif 'model' in data:
             endpoint = "/carsbymodel/" + str(dealer_id) + "/" + data['model']
         elif 'mileage' in data:
-            endpoint = "/carsbymaxmileage/" + str(dealer_id) + "/" + data['mileage']
+            endpoint = "/carsbymaxmileage/" + 
+                        str(dealer_id) + "/" + data['mileage']
         elif 'price' in data:
             endpoint = "/carsbyprice/" + str(dealer_id) + "/" + data['price']
         else:
             endpoint = "/cars/" + str(dealer_id)
- 
+
         cars = searchcars_request(endpoint)
         return JsonResponse({"status": 200, "cars": cars})
     else:
