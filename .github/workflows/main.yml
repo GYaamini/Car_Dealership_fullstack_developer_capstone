@@ -70,11 +70,17 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_TOKEN
 
-    # - name: Install docker-compose
-    #   run: |
-    #     sudo apt install docker-compose
-      
-    # - name: Deploy microservices
+    - name: Build the Docker image for nodeapp
+      run: |
+        docker build . -f server/database/Dockerfile -t nodeapp
+        docker build . -f server/carsInventory/Dockerfile -t nodeapp
+   
+    - name: Install docker-compose
+      run: |
+        sudo apt install docker-compose
+
+    - name: Deploy microservices
+      run: docker-compose -f server/docker-compose.yml up -d
     #   run: docker-compose -f server/docker-compose.yml up --build
     #   run: docker-compose -f server/docker-compose.yml up web
 

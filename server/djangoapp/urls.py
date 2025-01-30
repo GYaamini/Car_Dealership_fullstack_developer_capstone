@@ -15,6 +15,12 @@ urlpatterns = [
     # path for getting all cars
     path(route='get_cars', view=views.get_cars, name='getcars'),
 
+    path(
+        route='get_inventory/<int:dealer_id>',
+        view=views.get_inventory,
+        name='get_inventory'
+    ),
+
     # path for dealer reviews view
     path(route='get_dealers/', view=views.get_dealerships, name='get_dealers'),
     path(

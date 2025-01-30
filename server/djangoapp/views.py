@@ -8,7 +8,7 @@ import logging
 import json
 from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
-from .restapis import get_request, analyze_review_sentiments, post_review
+from .restapis import get_request, searchcars_request, analyze_review_sentiments, post_review
 
 
 # Get an instance of a logger
@@ -91,6 +91,29 @@ def get_cars(request):
             "CarMake": car_model.car_make.name
         })
     return JsonResponse({"CarModels": cars})
+
+
+def get_inventory(request, dealer_id):
+    data = request.GET
+    if (dealer_id):
+        if 'year' in data:
+            endpoint = "/carsbyyear/"+str(dealer_id)+"/"+data['year']
+        elif 'make' in data:
+            endpoint = "/carsbymake/"+str(dealer_id)+"/"+data['make']
+        elif 'model' in data:
+            endpoint = "/carsbymodel/"+str(dealer_id)+"/"+data['model']
+        elif 'mileage' in data:
+            endpoint = "/carsbymaxmileage/"+str(dealer_id)+"/"+data['mileage']
+        elif 'price' in data:
+            endpoint = "/carsbyprice/"+str(dealer_id)+"/"+data['price']
+        else:
+            endpoint = "/cars/"+str(dealer_id)
+ 
+        cars = searchcars_request(endpoint)
+        return JsonResponse({"status": 200, "cars": cars})
+    else:
+        return JsonResponse({"status": 400, "message": "Bad Request"})
+    return JsonResponse({"status": 400, "message": "Bad Request"})
 
 
 # Update the `get_dealerships` view to render the index page with

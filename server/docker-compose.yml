@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   # Mongodb service
-  mongo_db:
+  mongo_db1:
     container_name: db_container
     image: mongo:latest
     ports:
@@ -12,29 +12,48 @@ services:
       - mongo_data:/data/db
 
   # Node api service
-  api:
-    build: 
-      context: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main
-      dockerfile: server/database/Dockerfile
+  api1:
+    # build: 
+    #   context: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main
+    #   dockerfile: server/database/Dockerfile
     image: nodeapp
     ports:
       - 3030:3030
     depends_on: 
       - mongo_db
 
+  # Mongodb service
+  mongo_db2:
+    container_name: carsInventory_container
+    image: mongo:latest
+    ports:
+      - 27018:27017
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+
+  # Node api service
+  api2:
+    image: nodeapp
+    ports:
+      - 3050:3050
+    depends_on: 
+      - mongo_db
+
   # Sentiment Analyzer microservice
   sentianalyser:
-    build: 
-      context: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main
-      dockerfile: server/djangoapp/microservices/Dockerfile
+    # build: 
+    #   context: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main
+    #   dockerfile: server/djangoapp/microservices/Dockerfile
+    image: gowriyaamini/senti_analyzer:ede585d73dc033a7bfc260bea033c3d4ea3fdaf6
     ports:
       - 5000:5000
 
   # Frontend
   web:
-    build: 
-      context: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main
-      dockerfile: server/frontend/Dockerfile
+    # build: 
+    #   context: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main
+    #   dockerfile: server/frontend/Dockerfile
     ports:
       - "3000:3000"
 
