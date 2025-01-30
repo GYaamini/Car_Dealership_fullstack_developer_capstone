@@ -8,7 +8,8 @@ import logging
 import json
 from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
-from .restapis import get_request, searchcars_request, analyze_review_sentiments, post_review
+from .restapis import get_request, searchcars_request
+from .restapis import analyze_review_sentiments, post_review
 
 
 # Get an instance of a logger
@@ -97,17 +98,17 @@ def get_inventory(request, dealer_id):
     data = request.GET
     if (dealer_id):
         if 'year' in data:
-            endpoint = "/carsbyyear/"+str(dealer_id)+"/"+data['year']
+            endpoint = "/carsbyyear/" + str(dealer_id) + "/" + data['year']
         elif 'make' in data:
-            endpoint = "/carsbymake/"+str(dealer_id)+"/"+data['make']
+            endpoint = "/carsbymake/" + str(dealer_id) + "/" + data['make']
         elif 'model' in data:
-            endpoint = "/carsbymodel/"+str(dealer_id)+"/"+data['model']
+            endpoint = "/carsbymodel/" + str(dealer_id) + "/" + data['model']
         elif 'mileage' in data:
-            endpoint = "/carsbymaxmileage/"+str(dealer_id)+"/"+data['mileage']
+            endpoint = "/carsbymaxmileage/" + str(dealer_id) + "/" + data['mileage']
         elif 'price' in data:
-            endpoint = "/carsbyprice/"+str(dealer_id)+"/"+data['price']
+            endpoint = "/carsbyprice/" + str(dealer_id) + "/" + data['price']
         else:
-            endpoint = "/cars/"+str(dealer_id)
+            endpoint = "/cars/" + str(dealer_id)
  
         cars = searchcars_request(endpoint)
         return JsonResponse({"status": 200, "cars": cars})
@@ -122,7 +123,7 @@ def get_dealerships(request, state="All"):
     if state == "All":
         endpoint = "/fetchDealers"
     else:
-        endpoint = "/fetchDealers/"+state
+        endpoint = "/fetchDealers/" + state
     dealerships = get_request(endpoint)
     return JsonResponse({"status": 200, "dealers": dealerships})
 
@@ -130,7 +131,7 @@ def get_dealerships(request, state="All"):
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
 def get_dealer_reviews(request, dealer_id):
     if dealer_id:
-        endpoint = "/fetchReviews/dealer/"+str(dealer_id)
+        endpoint = "/fetchReviews/dealer/" + str(dealer_id)
         reviews = get_request(endpoint)
         for review_detail in reviews:
             response = analyze_review_sentiments(review_detail['review'])
@@ -144,7 +145,7 @@ def get_dealer_reviews(request, dealer_id):
 # Create a `get_dealer_details` view to render the dealer details
 def get_dealer_details(request, dealer_id):
     if dealer_id:
-        endpoint = "/fetchDealer/"+str(dealer_id)
+        endpoint = "/fetchDealer/" + str(dealer_id)
         dealership = get_request(endpoint)
         return JsonResponse({"status": 200, "dealer": dealership})
     else:
