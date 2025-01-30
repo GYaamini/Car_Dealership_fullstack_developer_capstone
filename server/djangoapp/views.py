@@ -104,8 +104,10 @@ def get_inventory(request, dealer_id):
         elif 'model' in data:
             endpoint = "/carsbymodel/" + str(dealer_id) + "/" + data['model']
         elif 'mileage' in data:
-            endpoint = "/carsbymaxmileage/" + 
+            endpoint = str(
+                "/carsbymaxmileage/" + 
                         str(dealer_id) + "/" + data['mileage']
+            )
         elif 'price' in data:
             endpoint = "/carsbyprice/" + str(dealer_id) + "/" + data['price']
         else:

@@ -50,12 +50,12 @@ services:
       - 5000:5000
 
   # Frontend
-  web:
+  # web:
     # build: 
     #   context: https://github.com/GYaamini/Car_Dealership_fullstack_developer_capstone.git#main
     #   dockerfile: server/frontend/Dockerfile
-    ports:
-      - "3000:3000"
+    # ports:
+    #   - "3000:3000"
 
 volumes:
   mongo_data: {}
